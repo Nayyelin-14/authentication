@@ -5,6 +5,7 @@ const passwordschema = z.string().min(6).max(225);
 export const loginSchema = z.object({
   email: emailSchema,
   password: passwordschema,
+  userAgent: z.string().optional(),
 });
 
 export const registerSchema = loginSchema
@@ -16,3 +17,8 @@ export const registerSchema = loginSchema
     message: "Passwords do not match",
     path: ["confirmpassword"], //path: The field that caused the error. This points to the confirmPassword field, so that the validation error is attached to it.
   });
+
+export const resetPasswordSchema = z.object({
+  code: z.string().min(1).max(24),
+  password: passwordschema,
+});

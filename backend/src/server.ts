@@ -6,6 +6,9 @@ import { APP_ORIGIN, NODE_ENV, PORT } from "./constants/env";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middleware/errorhandler";
 import authRoutes from "./Routes/auth.route.";
+import authenticate from "./middleware/authenticate";
+import userRoutes from "./Routes/user.route";
+import sessinRoutes from "./Routes/session.route";
 
 dotenv.config();
 const app = express();
@@ -22,6 +25,8 @@ app.use(cookieParser()); //handles incoming requests — specifically, it parses
 
 //routes
 app.use("/auth", authRoutes);
+app.use("/user", authenticate, userRoutes);
+app.use("/session", authenticate, sessinRoutes);
 //
 app.use(errorHandler);
 app.listen(PORT, async () => {

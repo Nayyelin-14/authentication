@@ -8,16 +8,21 @@ export interface verifyCodeDocuemnt extends mongoose.Document {
   expiresAt: Date;
 }
 
-const VerificationCodeSchema = new mongoose.Schema<verifyCodeDocuemnt>({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
-    ref: "User",
-    required: true,
+const VerificationCodeSchema = new mongoose.Schema<verifyCodeDocuemnt>(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      index: true,
+      ref: "User",
+      required: true,
+    },
+    type: { type: String, required: true },
+    expiresAt: { type: Date, default: oneDayFromNow },
   },
-  type: { type: String, required: true },
-  expiresAt: { type: Date, default: oneDayFromNow },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const VerificationCodeModel = mongoose.model<verifyCodeDocuemnt>(
   "VerificationCode", //Model name

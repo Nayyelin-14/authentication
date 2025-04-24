@@ -37,7 +37,7 @@ export const signToken = (
 
   return jwt.sign(payload, secret, {
     ...defaults,
-    ...signOpts,
+    ...signOpts, //This ensures that anything in signOpts overwrites the same keys in defaults
   });
 };
 
